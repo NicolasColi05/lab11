@@ -3,10 +3,8 @@ package it.unibo.oop.reactivegui01;
 import it.unibo.oop.JFrameUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.Serial;
 import java.lang.reflect.InvocationTargetException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -36,6 +34,7 @@ public final class ConcurrentGUI extends JFrame {
         panel.add(stop);
         this.getContentPane().add(panel);
         this.setVisible(true);
+
         /*
          * Create the counter agent and start it. This is actually not so good:
          * thread management should be left to
@@ -43,6 +42,7 @@ public final class ConcurrentGUI extends JFrame {
          */
         final Agent agent = new Agent();
         new Thread(agent).start();
+
         /*
          * Register a listener that stops it
          */
