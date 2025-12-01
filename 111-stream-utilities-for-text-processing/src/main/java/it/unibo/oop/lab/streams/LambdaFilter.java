@@ -1,5 +1,6 @@
 package it.unibo.oop.lab.streams;
 
+import java.util.stream.Collectors;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,9 +8,10 @@ import java.awt.GridLayout;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.io.Serial;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.function.Function;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -41,6 +43,23 @@ public final class LambdaFilter extends JFrame {
         /**
          * Commands.
          */
+        COUNT_OCCURENCY("Write the count for each word", s -> List.of(s.split(" ")).stream()
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+            .entrySet().stream()
+            .map(v -> v.getKey() + "->" + v.getValue())
+            .toList()
+            .toString()
+        ),
+        ALPHABETICAL_ORDER("List all the words in alphabetical order", s -> List.of(s.split(" ")).stream()
+            .sorted()
+            .collect(Collectors.joining("\n"))
+        ),
+        COUNT_CHARS("count number of chars", s -> "the chars are : " + s.lines()
+            .mapToInt(String::length).sum()
+        ),
+        COUNT_LINES("count the number of lines", s -> "the lines are : " + s.lines()
+            .count()),
+        TO_LOWERCASE("Convert to lowercase", s -> s.toLowerCase(Locale.getDefault())),
         IDENTITY("No modifications", Function.identity());
 
         private final String commandName;
@@ -102,3 +121,4 @@ public final class LambdaFilter extends JFrame {
         gui.setVisible(true);
     }
 }
+
